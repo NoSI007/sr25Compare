@@ -1,0 +1,114 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Local="clr-namespace:Sr25Compare"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Sr25Compare.MainWindow"
+        Title="Home" Height="auto" Width="auto" SizeToContent="WidthAndHeight"  MinWidth="4" BorderThickness="2" BorderBrush="#FFFFBE00">
+    <Window.Resources>
+        <Local:Sr25DataSet x:Key="SR25DS"/>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
+            <Setter Property="Background" Value="Silver"/>
+                    
+        </Style>
+    </Window.Resources>
+    <Window.Effect>
+        <DropShadowEffect/>
+    </Window.Effect>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" >
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="300" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="36" />
+			<RowDefinition Height="36" />
+			<RowDefinition Height="120" />
+			<RowDefinition Height="*" />
+            <RowDefinition Height="5"/>
+		</Grid.RowDefinitions>
+
+		<Border Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="3">
+			<Label Margin="5,0" FontFamily="Corbel" FontSize="13.333" FontWeight="Bold" Content="Browse and search USDA Food Database" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{DynamicResource CenLabel}" Foreground="#FF2800FF"/>
+		</Border>
+		<Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="White" >
+			<StackPanel Orientation="Horizontal">
+                <TextBox Height="30" Margin="5,0" x:Name="Wild" Width="200"  HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+                <Button Height="30" Margin="5,0" x:Name="z_go" Width="60" Content="Find" Click="z_go_Click"   Foreground="#FFB400FF" BorderBrush="#FF00CBFF"/>
+            </StackPanel>
+		</Border>
+		<Border Grid.Row="2" Margin="5,0" Grid.Column="0" BorderBrush="LightGray" BorderThickness="2" Opacity=".85">
+			<ListView  ItemsSource="{Binding}" x:Name="grpList" SelectionMode="Single"   SelectedValuePath="FdGrp_CD" SelectionChanged="grpList_SelectionChanged" Style="{StaticResource LVStyle}" Foreground="#FF4000FF" FontSize="14" FontWeight="Bold" >
+				<ListView.ItemContainerStyle>
+					<Style>
+						<Setter Property="Control.HorizontalContentAlignment" Value="Stretch" />
+						<Setter Property="Control.VerticalContentAlignment" Value="Stretch" />
+					</Style>
+				</ListView.ItemContainerStyle>
+				<ListView.View>
+					<GridView>
+						<GridViewColumn x:Name="fdGrp_Desc" Header="  Food Groups  " Width="300">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding FdGrp_Desc}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+					</GridView>
+				</ListView.View>
+			</ListView>
+		</Border>
+		<Border Margin="5,0" Grid.Row="3" Background="#FF99D999" Opacity=".75" Grid.Column="0" BorderThickness="2,5">
+
+            <ListView  MaxHeight="300"  x:Name="FooList" DisplayMemberPath="Desc" ItemsSource="{Binding ''}" SelectedValuePath="NDB_No" SelectionMode="Single" Style="{StaticResource LVStyle}" Foreground="#FF0C3005" FontSize="13" FontWeight="Bold" >
+                <ListView.View>
+					<GridView>
+						<GridViewColumn x:Name="foolisting" Header="  Foods" Width="300">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Desc}" TextTrimming="WordEllipsis" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+					</GridView>
+				</ListView.View>
+			</ListView>
+            
+		</Border>
+		
+        <Border  HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" BorderThickness="5">
+			<Grid >
+				<Grid.RowDefinitions >
+					<RowDefinition Height="38" />
+					<RowDefinition Height="38"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+				<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,0">
+                    <Button FontWeight="Bold" Margin="0,3,3,3" Width="60" x:Name="z_add" Content="Add"  Foreground="Blue"  Click="z_add_Click" />
+
+                    <Button FontWeight="Bold" Margin="6,3,3,3" Width="60"  x:Name="z_del" Content="Remove"  Foreground="#770000" Click="z_del_Click" />
+                    <Button FontWeight="Bold" Margin="19,3" Width="60"  x:Name="z_clear" Content="Clear"  Foreground="#FFFF006E" Click="z_clear_Click"    />
+				</StackPanel>
+				<StackPanel Background="AliceBlue" Grid.Row="1" Orientation="Horizontal" Margin="5,0">
+					<Button FontWeight="Bold" Margin="0,3" Width="99" x:Name="z_comp"  Content="Table Compare"  Foreground="DarkGreen"  Click="z_comp_Click" />
+					<Button FontWeight="Bold" Margin="10,3" Width="99" x:Name="z_comp1" Content="Panel Compare"  Foreground="DarkGreen" Click="z_PanelComp" />
+				</StackPanel>
+				<StackPanel Grid.Row="2"  Margin="5,5,5,0" Background="#FFD3B881" Opacity=".65"  >
+					<ListBox x:Name="cmp" Background="Transparent" Style="{StaticResource LBStyle}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="14" FontWeight="Bold">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock  Width="300"/>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+			</Grid>
+		</Border>
+		<Label   x:Name="z_cmp_count" Width="auto" Height="auto" Opacity="1"  Grid.Column="1" Grid.Row="1"  Style="{StaticResource CenLabel}" Margin="10,0"/>
+        
+	</Grid>
+</Window>

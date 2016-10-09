@@ -1,0 +1,25 @@
+﻿<Window x:Class="Sr25Compare.SRTable"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SRTable" Height="auto" Width="auto" >
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ProgressBar Background="#FFB2E8BA" Foreground="#FF042C04" Visibility="Visible" Name="z_prog" Width="200" Height="14"  Grid.Row="0"  HorizontalAlignment="Center"   VerticalAlignment="Center"/>
+       
+        <DataGrid RowBackground="Transparent"  Grid.Row="1" FrozenColumnCount="1" GridLinesVisibility="All" Background="Transparent"
+                AutoGenerateColumns="True" AutoGeneratingColumn="z_res_AutoGeneratingColumn"  
+                Name="z_res"   CanUserSortColumns="True" SelectionMode="Single" 
+                SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False"
+                HorizontalContentAlignment="Right" HorizontalGridLinesBrush="#FFD2CFEC" 
+                VerticalGridLinesBrush="#FFD2CFEC"
+                VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold">
+
+
+        </DataGrid>
+
+
+    </Grid>
+</Window>
